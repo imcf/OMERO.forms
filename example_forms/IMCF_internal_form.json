@@ -1,0 +1,151 @@
+{
+    "title": "IMCF import form",
+    "type": "object",
+    "properties": {
+        "Objective": {
+            "$ref": "#/definitions/Objective"
+        },
+        "Fixation": {
+            "$ref": "#/definitions/Fixation"
+        },
+        "Fluorophore": {
+            "$ref": "#/definitions/Fluorophores"
+        },
+        "": {
+            "$ref": "#/definitions/Sample"
+        },
+        "ELN link": {
+            "$ref": "#/definitions/ELNlink"
+        }
+    },
+    "definitions": {
+        "Objective": {
+            "type": "object",
+            "required": [
+                "ObjMag",
+                "ObjNA"
+            ],
+            "properties": {
+                "ObjMag": {
+                    "type": "number",
+                    "title": "Define the objective used for imaging:",
+                    "enum": [
+                        4,
+                        5,
+                        10,
+                        20,
+                        25,
+                        30,
+                        40,
+                        60,
+                        63,
+                        100
+                    ]
+                },
+                "Optovar": {
+                    "type": "number",
+                    "title": "If an optovar was used, please define its value:",
+                    "enum": [
+                        1,
+                        1.5,
+                        1.6,
+                        3.2
+                    ]
+                },
+                "ObjNA": {
+                    "type": "number",
+                    "title": "Enter the objective NA:",
+                    "minimum": 0,
+                    "maximum": 2
+                },
+                "ImmersionMedium": {
+                    "type": "string",
+                    "title": "Immersion medium:",
+                    "enum": [
+                        "Oil",
+                        "Silicone",
+                        "Water",
+                        "Air",
+                        "Glycerol",
+                        "Other"
+                    ]
+                }
+            }
+        },
+        "Fixation": {
+            "type": "object",
+            "properties": {
+                "Fixation": {
+                    "type": "string",
+                    "enum": [
+                        "Methanol",
+                        "PFA",
+                        "Other"
+                    ]
+                }
+            }
+        },
+        "Fluorophores": {
+            "title": "Fluorophore(s)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "nestedExc": {
+                        "title": "Excitation wavelength (nm):",
+                        "type": "number",
+                        "minimum": 100,
+                        "maximum": 10000
+                    },
+                    "nestedEm": {
+                        "title": "Emission wavelength (nm):",
+                        "type": "number",
+                        "minimum": 100,
+                        "maximum": 10000
+                    }
+                }
+            }
+        },
+        "Sample": {
+            "title": "Sample type",
+            "type": "object",
+            "oneOf": [
+                {
+                    "title": "Fixed sample",
+                    "properties": {
+                        "": {
+                            "type": "string",
+                            "enum": [
+                                "Vectashield h1000",
+                                "Prolong gold",
+                                "Prolong diamond",
+                                "Other"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "title": "Live sample",
+                    "properties": {
+                        "": {
+                            "type": "string",
+                            "enum": [
+                                "Live cell imaging medium",
+                                "Other"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "ELNlink": {
+            "type": "object",
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri"
+                }
+            }
+        }
+    }
+}
